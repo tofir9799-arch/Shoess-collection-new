@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Shoe Collection</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0b0b0b;
+color:white;
+}
+
+header{
+position:sticky;
+top:0;
+background:#111;
+padding:18px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{
+color:white;
+text-decoration:none;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:30px 20px;
+}
+
+h1{
+margin-bottom:25px;
+}
+
+.cart-card{
+display:flex;
+gap:20px;
+background:#151515;
+padding:18px;
+border-radius:18px;
+flex-wrap:wrap;
+}
+
+.cart-card img{
+width:150px;
+border-radius:14px;
+}
+
+.details{
+flex:1;
+}
+
+.price{
+font-size:22px;
+font-weight:bold;
+margin:10px 0;
+}
+
+.qty{
+display:flex;
+align-items:center;
+gap:12px;
+margin-top:15px;
+}
+
+.qty button{
+width:38px;
+height:38px;
+border:none;
+border-radius:50%;
+background:white;
+color:black;
+font-size:20px;
+font-weight:bold;
+}
+
+<div class="summary">
+
+  <div class="row">
+    <span>Subtotal</span>
+    <span>₹<span id="subtotal">1999</span></span>
+  </div>
+
+  <div class="row">
+    <span>Shipping</span>
+    <span>FREE</span>
+  </div>
+
+  <div class="row total">
+    <span>Total</span>
+    <span>₹<span id="total">1999</span></span>
+  </div>
+
+  <a class="checkout" href="checkout.html">
+    Proceed to Checkout
+  </a>
+
+</div>
+
+.row{
+display:flex;
+justify-content:space-between;
+margin:12px 0;
+}
+
+.total{
+font-size:24px;
+font-weight:bold;
+border-top:1px solid #333;
+padding-top:15px;
+}
+
+.checkout{
+display:block;
+margin-top:22px;
+text-align:center;
+background:#25D366;
+color:white;
+text-decoration:none;
+padding:16px;
+border-radius:35px;
+font-weight:bold;
+font-size:18px;
+}
+
+footer{
+margin-top:40px;
+padding:20px;
+text-align:center;
+background:#111;
+color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>SHOE COLLECTION</h2>
+<a href="product.html">← Back</a>
+</header>
+
+<div class="container">
+
+<h1>Your Cart</h1>
+
+<div class="cart-card">
+
+<img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500" alt="Shoe">
+
+<div class="details">
+
+<h2>Red Air Max</h2>
+
+<p>Premium Sneaker</p>
+
+<p class="price">₹<span id="price">1999</span></p>
+
+<div class="qty">
+
+<button onclick="changeQty(-1)">−</button>
+
+<h3 id="qty">1</h3>
+
+<button onclick="changeQty(1)">+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="summary">
+
+<div class="row">
+<span>Subtotal</span>
+<span>₹<span id="subtotal">1999</span></span>
+</div>
+
+<div class="row">
+<span>Shipping</span>
+<span>FREE</span>
+</div>
+
+<div class="row total">
+<span>Total</span>
+<span>₹<span id="total">1999</span></span>
+</div>
+
+<a class="checkout" href="checkout.html">
+Proceed to Checkout
+</a>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 Shoe Collection
+</footer>
+
+<script>
+let quantity=1;
+const price=1999;
+
+function updateCart(){
+document.getElementById("qty").innerText=quantity;
+let total=quantity*price;
+document.getElementById("subtotal").innerText=total;
+document.getElementById("total").innerText=total;
+
+document.getElementById("checkoutBtn").href=
+"https://wa.me/919460609713?text=Hi,%20I%20want%20to%20order%20"+quantity+"%20Red%20Air%20Max.%20Total:%20₹"+total;
+}
+
+function changeQty(val){
+quantity+=val;
+if(quantity<1) quantity=1;
+updateCart();
+}
+
+updateCart();
+</script>
+
+</body>
+</html>
