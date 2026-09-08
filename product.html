@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Red Air Max - Shoe Collection</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#0b0b0b;color:#fff;}
+
+header{
+position:sticky;
+top:0;
+background:#111;
+padding:18px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+header a{color:#fff;text-decoration:none;}
+
+.container{
+padding:30px 20px;
+display:grid;
+grid-template-columns:1fr;
+gap:30px;
+max-width:1100px;
+margin:auto;
+}
+
+.main-img{
+width:100%;
+border-radius:20px;
+}
+
+.thumb-box{
+display:flex;
+gap:10px;
+margin-top:12px;
+overflow:auto;
+}
+
+.thumb-box img{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:10px;
+cursor:pointer;
+border:2px solid transparent;
+}
+
+.thumb-box img:hover{
+border-color:#fff;
+}
+
+.price{
+font-size:28px;
+font-weight:bold;
+margin:12px 0;
+}
+
+.desc{
+color:#bbb;
+line-height:1.7;
+margin-bottom:20px;
+}
+
+.sizes{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:25px;
+}
+
+.sizes button{
+background:#1a1a1a;
+color:#fff;
+border:1px solid #333;
+padding:12px 16px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.sizes button:hover{
+background:#fff;
+color:#000;
+}
+
+.buy{
+display:block;
+text-align:center;
+background:#25D366;
+color:#fff;
+text-decoration:none;
+padding:16px;
+border-radius:35px;
+font-weight:bold;
+font-size:18px;
+}
+
+.features{
+margin-top:30px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+}
+
+.box{
+background:#151515;
+padding:18px;
+border-radius:15px;
+text-align:center;
+}
+
+footer{
+margin-top:40px;
+padding:20px;
+text-align:center;
+background:#111;
+color:#888;
+}
+
+@media(min-width:768px){
+.container{
+grid-template-columns:1fr 1fr;
+align-items:center;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>SHOE COLLECTION</h2>
+<a href="collection.html">← Back</a>
+</header>
+
+<div class="container">
+
+<div>
+<img id="mainImage" class="main-img"
+src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
+
+<div class="thumb-box">
+
+<img onclick="changeImage(this.src)"
+src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300">
+
+<img onclick="changeImage(this.src)"
+src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300">
+
+<img onclick="changeImage(this.src)"
+src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300">
+
+</div>
+</div>
+
+<div>
+
+<h1>Red Air Max</h1>
+
+<p class="price">₹1,999</p>
+
+<p class="desc">
+Premium sneakers with lightweight comfort, modern design and durable sole.
+Perfect for casual wear and daily use.
+</p>
+
+<h3>Select Size</h3>
+
+<div class="sizes">
+<button>7</button>
+<button>8</button>
+<button>9</button>
+<button>10</button>
+</div>
+
+<a class="buy"
+href="https://wa.me/919460609713?text=Hi%20I%20want%20to%20buy%20Red%20Air%20Max">
+Buy on WhatsApp
+</a>
+
+<div class="features">
+
+<div class="box">
+<h4>Premium</h4>
+<p>Quality</p>
+</div>
+
+<div class="box">
+<h4>Fast</h4>
+<p>Delivery</p>
+</div>
+
+<div class="box">
+<h4>Easy</h4>
+<p>Return</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>© 2026 Shoe Collection</footer>
+
+<script>
+function changeImage(src){
+document.getElementById("mainImage").src=src;
+}
+</script>
+
+</body>
+</html>
