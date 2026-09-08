@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shoe Collection</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0b0b0b;color:#fff}
+header{
+position:sticky;
+top:0;
+background:#111;
+padding:18px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+header a{color:#fff;text-decoration:none}
+.container{padding:30px 20px}
+h1{text-align:center;margin-bottom:30px}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+gap:20px;
+}
+.card{
+background:#161616;
+border-radius:18px;
+overflow:hidden;
+transition:.3s;
+}
+.card:hover{transform:translateY(-8px)}
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
+.info{padding:15px}
+.price{color:#aaa;margin:8px 0}
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:30px;
+background:#fff;
+font-weight:700;
+cursor:pointer;
+}
+.out{
+background:#444;
+color:#bbb;
+cursor:not-allowed;
+}
+footer{
+margin-top:40px;
+padding:20px;
+text-align:center;
+background:#111;
+color:#888;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h2>SHOE COLLECTION</h2>
+<a href="index.html">← Home</a>
+</header>
+
+<div class="container">
+
+<h1>Our Collection</h1>
+
+<div id="productGrid" class="grid"></div>
+
+</div>
+
+<footer>
+© 2026 Shoe Collection
+</footer>
+
+<script>
+const grid=document.getElementById("productGrid");
+
+const defaultProducts=[
+{
+name:"Red Air Max",
+price:"1999",
+image:"https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
+status:"In Stock"
+},
+{
+name:"Classic White",
+price:"2499",
+image:"https://images.unsplash.com/photo-1549298916-b41d501d3772?w=500",
+status:"In Stock"
+},
+{
+name:"Runner Pro",
+price:"2799",
+image:"https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=500",
+status:"In Stock"
+}
+];
+
+let adminProducts=JSON.parse(localStorage.getItem("products"))||[];
+
+const products=[...defaultProducts,...adminProducts];
+
+products.forEach(product=>{
+
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<img src="${product.image}">
+<div class="info">
+<h3>${product.name}</h3>
+<p class="price">₹${product.price}</p>
+
+${
+product.status==="Out of Stock"
+?'<button class="out">Out of Stock</button>'
+:'<button onclick="openProduct()">Buy Now</button>'
+}
+
+</div>
+`;
+
+grid.appendChild(card);
+
+});
+
+function openProduct(){
+location.href="product.html";
+}
+</script>
+
+</body>
+</html>
