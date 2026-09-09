@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shoe Collection</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
@@ -13,49 +13,78 @@ body{background:#0b0b0b;color:#fff}
 a{text-decoration:none;color:inherit}
 
 header{
+position:sticky;
+top:0;
 background:#111;
-padding:18px 20px;
+padding:15px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
-position:sticky;
-top:0;
-z-index:100;
+z-index:999;
 }
 
-.logo{font-size:28px;font-weight:700}
+.logo{
+font-size:26px;
+font-weight:700;
+}
 
-.admin-btn{
+.right{
+display:flex;
+gap:10px;
+align-items:center;
+}
+
+.admin{
 background:#25D366;
-padding:10px 18px;
+padding:10px 16px;
 border-radius:10px;
 font-weight:600;
 }
 
+.cart-btn{
+position:relative;
+background:#222;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+}
+
+#cartCount{
+position:absolute;
+top:-6px;
+right:-6px;
+background:red;
+width:20px;
+height:20px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:12px;
+}
+
 .hero{
-padding:80px 20px;
+padding:70px 20px;
 text-align:center;
+background:linear-gradient(180deg,#111,#0b0b0b);
 }
 
 .hero h1{
-font-size:46px;
-line-height:1.15;
-margin-bottom:18px;
+font-size:42px;
+margin-bottom:15px;
 }
 
 .hero p{
-font-size:18px;
 color:#aaa;
-margin-bottom:28px;
+margin-bottom:25px;
 }
 
-.shop-btn{
-display:inline-block;
+.shop{
 background:#25D366;
-padding:15px 35px;
-border-radius:12px;
+padding:14px 30px;
+border-radius:10px;
 font-weight:bold;
-font-size:18px;
+display:inline-block;
 }
 
 .container{
@@ -64,15 +93,10 @@ margin:auto;
 padding:25px 20px 60px;
 }
 
-.container h2{
-font-size:34px;
-margin-bottom:22px;
-}
-
 .products{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:22px;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
 }
 
 .card{
@@ -93,12 +117,11 @@ object-fit:cover;
 }
 
 .info{
-padding:18px;
+padding:15px;
 }
 
 .info h3{
-font-size:28px;
-margin-bottom:10px;
+margin-bottom:8px;
 }
 
 .price{
@@ -109,44 +132,186 @@ margin-bottom:12px;
 
 .stock{
 display:inline-block;
-padding:7px 14px;
-border-radius:25px;
-background:#1b5e20;
-font-size:14px;
-font-weight:600;
+padding:5px 12px;
+background:#14532d;
+border-radius:20px;
+font-size:13px;
+margin-bottom:15px;
 }
 
 .out{
-background:#6d4c41;
+background:#78350f;
 }
 
-.loading{
+.btns{
+display:flex;
+gap:8px;
+}
+
+.btn{
+flex:1;
+padding:12px;
+border:none;
+border-radius:10px;
+font-weight:600;
+cursor:pointer;
+}
+
+.cart{
+background:#222;
+color:#fff;
+}
+
+.buy{
+background:#25D366;
+color:#fff;
+}
+
+/* Cart Drawer */
+
+.drawer{
+position:fixed;
+top:0;
+right:-100%;
+width:340px;
+height:100%;
+background:#111;
+transition:.3s;
+z-index:1000;
+display:flex;
+flex-direction:column;
+}
+
+.drawer.open{
+right:0;
+}
+
+.drawer-header{
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+border-bottom:1px solid #333;
+}
+
+.close{
+font-size:26px;
+cursor:pointer;
+}
+
+.items{
+flex:1;
+overflow:auto;
+padding:15px;
+}
+
+.item{
+display:flex;
+gap:12px;
+margin-bottom:15px;
+background:#1b1b1b;
+padding:10px;
+border-radius:10px;
+}
+
+.item img{
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.remove{
+background:red;
+color:#fff;
+border:none;
+padding:6px 10px;
+border-radius:6px;
+margin-top:6px;
+}
+
+.footer{
+padding:20px;
+border-top:1px solid #333;
+}
+
+.checkout{
+width:100%;
+padding:15px;
+background:#25D366;
+border:none;
+color:white;
+font-size:17px;
+font-weight:bold;
+border-radius:12px;
+cursor:pointer;
+}
+
+.empty{
 text-align:center;
-padding:40px;
-color:#888;
+color:#777;
+margin-top:40px;
 }
 </style>
+
 </head>
 
 <body>
 
 <header>
+
 <div class="logo">Shoe Collection</div>
-<a href="admin.html" class="admin-btn">Admin</a>
+
+<div class="right">
+
+<a href="admin.html" class="admin">Admin</a>
+
+<div class="cart-btn" onclick="openCart()">
+🛒
+<div id="cartCount">0</div>
+</div>
+
+</div>
+
 </header>
 
 <section class="hero">
-<h1>Premium Sneakers For Every Style</h1>
-<p>Discover modern shoes with premium quality and comfort.</p>
-<a href="#products" class="shop-btn">Shop Now</a>
+
+<h1>Premium Sneakers</h1>
+
+<p>Best Quality Shoes with Fast WhatsApp Ordering.</p>
+
+<a href="#products" class="shop">Shop Now</a>
+
 </section>
 
 <div class="container">
 
-<h2>Latest Products</h2>
+<h2 style="margin-bottom:20px">Latest Products</h2>
 
-<div id="products" class="products">
-<div class="loading">Loading products...</div>
+<div id="products" class="products"></div>
+
+</div>
+
+<!-- CART -->
+
+<div id="drawer" class="drawer">
+
+<div class="drawer-header">
+<h3>Your Cart</h3>
+<div class="close" onclick="closeCart()">×</div>
+</div>
+
+<div id="cartItems" class="items"></div>
+
+<div class="footer">
+
+<h3>Total: ₹<span id="total">0</span></h3>
+
+<button class="checkout" onclick="checkoutWhatsApp()">
+Checkout on WhatsApp
+</button>
+
 </div>
 
 </div>
@@ -161,65 +326,200 @@ collection,
 getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-const firebaseConfig = {
+const firebaseConfig={
 apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
 authDomain:"shoess-collection.firebaseapp.com",
 projectId:"shoess-collection",
 storageBucket:"shoess-collection.firebasestorage.app",
 messagingSenderId:"947805916030",
-appId:"1:947805916030:web:6a8efeb305c258a78f412f",
-measurementId:"G-HL4ETGS860"
+appId:"1:947805916030:web:6a8efeb305c258a78f412f"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
 
-const productsDiv = document.getElementById("products");
+const db=getFirestore(app);
+
+const productsDiv=document.getElementById("products");
+
+let cart=JSON.parse(localStorage.getItem("cart"))||[];
+
+function saveCart(){
+
+localStorage.setItem("cart",JSON.stringify(cart));
+
+updateCart();
+
+}
+
+window.openCart=()=>{
+
+document.getElementById("drawer").classList.add("open");
+
+}
+
+window.closeCart=()=>{
+
+document.getElementById("drawer").classList.remove("open");
+
+}
+
+window.removeItem=index=>{
+
+cart.splice(index,1);
+
+saveCart();
+
+}
+
+window.checkoutWhatsApp=()=>{
+
+if(cart.length===0){
+
+alert("Cart is Empty");
+
+return;
+
+}
+
+let text="Hello Shoe Collection,%0A%0AI want to order:%0A";
+
+let total=0;
+
+cart.forEach(p=>{
+
+text+=`• ${p.name} - ₹${p.price}%0A`;
+
+total+=Number(p.price);
+
+});
+
+text+=`%0ATotal: ₹${total}`;
+
+location.href=`https://wa.me/919460609713?text=${text}`;
+
+}
+
+function updateCart(){
+
+document.getElementById("cartCount").innerText=cart.length;
+
+const wrap=document.getElementById("cartItems");
+
+wrap.innerHTML="";
+
+let total=0;
+
+if(cart.length===0){
+
+wrap.innerHTML='<div class="empty">Cart is Empty</div>';
+
+}
+
+cart.forEach((p,i)=>{
+
+total+=Number(p.price);
+
+wrap.innerHTML+=`
+
+<div class="item">
+
+<img src="${p.image}">
+
+<div>
+
+<h4>${p.name}</h4>
+
+<p>₹${p.price}</p>
+
+<button class="remove" onclick="removeItem(${i})">Remove</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("total").innerText=total;
+
+}
 
 async function loadProducts(){
 
 productsDiv.innerHTML="";
 
-const snap = await getDocs(collection(db,"products"));
-
-if(snap.empty){
-productsDiv.innerHTML='<div class="loading">No Products Found</div>';
-return;
-}
+const snap=await getDocs(collection(db,"products"));
 
 snap.forEach(doc=>{
 
-const p = doc.data();
+const p=doc.data();
 
-const status = p.status || "In Stock";
+const status=p.status||"In Stock";
 
-productsDiv.innerHTML += `
+productsDiv.innerHTML+=`
+
 <div class="card">
 
-<img src="${p.image}" alt="${p.name}">
+<img src="${p.image}">
 
 <div class="info">
 
 <h3>${p.name}</h3>
 
-<p class="price">₹${p.price}</p>
+<div class="price">₹${p.price}</div>
 
-<span class="stock ${status==="Out of Stock"?"out":""}">
-${status}
-</span>
+<span class="stock ${status==="Out of Stock"?"out":""}">${status}</span>
+
+<div class="btns">
+
+<button class="btn cart" onclick='addToCart(${JSON.stringify({
+name:"__NAME__",
+price:"__PRICE__",
+image:"__IMAGE__"
+}).replace("__NAME__",p.name).replace("__PRICE__",p.price).replace("__IMAGE__",p.image)})'>Cart</button>
+
+<button class="btn buy" onclick='buyNow(${JSON.stringify({
+name:"__NAME__",
+price:"__PRICE__",
+image:"__IMAGE__"
+}).replace("__NAME__",p.name).replace("__PRICE__",p.price).replace("__IMAGE__",p.image)})'>Buy</button>
 
 </div>
 
 </div>
+
+</div>
+
 `;
 
 });
 
 }
 
+window.addToCart=product=>{
+
+cart.push(product);
+
+saveCart();
+
+alert("Added to Cart");
+
+}
+
+window.buyNow=product=>{
+
+const msg=`Hello Shoe Collection,%0AI want to buy ${product.name}%0APrice: ₹${product.price}`;
+
+location.href=`https://wa.me/919460609713?text=${msg}`;
+
+}
+
+updateCart();
+
 loadProducts();
 
 </script>
 
 </body>
-</html>
+  </html>
