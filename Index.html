@@ -4,27 +4,89 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shoe Collection</title>
-<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0b0b0b;color:#fff}
+header{padding:20px;background:#111;display:flex;justify-content:space-between;align-items:center}
+.logo{font-size:30px;font-weight:700}
+.hero{padding:60px 20px;text-align:center}
+.hero h1{font-size:42px}
+.hero p{margin:15px 0;color:#aaa}
+.btn{display:inline-block;padding:14px 28px;background:#25D366;color:#fff;text-decoration:none;border-radius:10px;font-weight:bold}
+.container{max-width:1200px;margin:auto;padding:20px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.card{background:#151515;border-radius:16px;overflow:hidden}
+.card img{width:100%;height:220px;object-fit:cover}
+.info{padding:15px}
+.price{font-size:22px;font-weight:bold}
+.stock{display:inline-block;padding:5px 12px;border-radius:20px;margin-top:10px;background:#1b5e20}
+.out{background:#6d4c41}
+</style>
+
 </head>
 <body>
 
-<header class="header">
-  <h2>Shoe Collection</h2>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Collection</a>
-    <a href="#">Contact</a>
-  </nav>
+<header>
+<div class="logo">Shoe Collection</div>
+<a href="admin.html" class="btn">Admin</a>
 </header>
 
 <section class="hero">
-  <div class="hero-text">
-    <h1>Premium Sneakers For Every Style</h1>
-    <p>Discover modern shoes with premium quality and comfort.</p>
-    <button>Shop Now</button>
-  </div>
+<h1>Premium Sneakers For Every Style</h1>
+<p>Discover modern shoes with premium quality and comfort.</p>
+<a href="#products" class="btn">Shop Now</a>
 </section>
 
-<script src="script.js"></script>
+<div class="container">
+<h2 style="margin-bottom:20px">Latest Products</h2>
+<div id="products" class="products"></div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
+  authDomain: "shoess-collection.firebaseapp.com",
+  projectId: "shoess-collection",
+  storageBucket: "shoess-collection.firebasestorage.app",
+  messagingSenderId: "947805916030",
+  appId: "1:947805916030:web:6a8efeb305c258a78f412f"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const productsDiv = document.getElementById("products");
+
+async function loadProducts(){
+  productsDiv.innerHTML="";
+
+  const snap = await getDocs(collection(db,"products"));
+
+  snap.forEach(doc=>{
+    const p = doc.data();
+
+    productsDiv.innerHTML += `
+      <div class="card">
+        <img src="${p.image}" alt="${p.name}">
+        <div class="info">
+          <h3>${p.name}</h3>
+          <p class="price">₹${p.price}</p>
+          <span class="stock ${p.status==="Out of Stock"?"out":""}">
+            ${p.status}
+          </span>
+        </div>
+      </div>`;
+  });
+}
+
+loadProducts();
+</script>
+
 </body>
 </html>
