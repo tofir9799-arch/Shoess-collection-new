@@ -10,52 +10,165 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{background:#0b0b0b;color:#fff}
-header{padding:20px;background:#111;display:flex;justify-content:space-between;align-items:center}
-.logo{font-size:30px;font-weight:700}
-.hero{padding:60px 20px;text-align:center}
-.hero h1{font-size:42px}
-.hero p{margin:15px 0;color:#aaa}
-.btn{display:inline-block;padding:14px 28px;background:#25D366;color:#fff;text-decoration:none;border-radius:10px;font-weight:bold}
-.container{max-width:1200px;margin:auto;padding:20px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
-.card{background:#151515;border-radius:16px;overflow:hidden}
-.card img{width:100%;height:220px;object-fit:cover}
-.info{padding:15px}
-.price{font-size:22px;font-weight:bold}
-.stock{display:inline-block;padding:5px 12px;border-radius:20px;margin-top:10px;background:#1b5e20}
-.out{background:#6d4c41}
-</style>
+a{text-decoration:none;color:inherit}
 
+header{
+background:#111;
+padding:18px 20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+position:sticky;
+top:0;
+z-index:100;
+}
+
+.logo{font-size:28px;font-weight:700}
+
+.admin-btn{
+background:#25D366;
+padding:10px 18px;
+border-radius:10px;
+font-weight:600;
+}
+
+.hero{
+padding:80px 20px;
+text-align:center;
+}
+
+.hero h1{
+font-size:46px;
+line-height:1.15;
+margin-bottom:18px;
+}
+
+.hero p{
+font-size:18px;
+color:#aaa;
+margin-bottom:28px;
+}
+
+.shop-btn{
+display:inline-block;
+background:#25D366;
+padding:15px 35px;
+border-radius:12px;
+font-weight:bold;
+font-size:18px;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:25px 20px 60px;
+}
+
+.container h2{
+font-size:34px;
+margin-bottom:22px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:22px;
+}
+
+.card{
+background:#151515;
+border-radius:18px;
+overflow:hidden;
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card img{
+width:100%;
+height:240px;
+object-fit:cover;
+}
+
+.info{
+padding:18px;
+}
+
+.info h3{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.price{
+font-size:22px;
+font-weight:bold;
+margin-bottom:12px;
+}
+
+.stock{
+display:inline-block;
+padding:7px 14px;
+border-radius:25px;
+background:#1b5e20;
+font-size:14px;
+font-weight:600;
+}
+
+.out{
+background:#6d4c41;
+}
+
+.loading{
+text-align:center;
+padding:40px;
+color:#888;
+}
+</style>
 </head>
+
 <body>
 
 <header>
 <div class="logo">Shoe Collection</div>
-<a href="admin.html" class="btn">Admin</a>
+<a href="admin.html" class="admin-btn">Admin</a>
 </header>
 
 <section class="hero">
 <h1>Premium Sneakers For Every Style</h1>
 <p>Discover modern shoes with premium quality and comfort.</p>
-<a href="#products" class="btn">Shop Now</a>
+<a href="#products" class="shop-btn">Shop Now</a>
 </section>
 
 <div class="container">
-<h2 style="margin-bottom:20px">Latest Products</h2>
-<div id="products" class="products"></div>
+
+<h2>Latest Products</h2>
+
+<div id="products" class="products">
+<div class="loading">Loading products...</div>
+</div>
+
 </div>
 
 <script type="module">
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+getFirestore,
+collection,
+getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
-  authDomain: "shoess-collection.firebaseapp.com",
-  projectId: "shoess-collection",
-  storageBucket: "shoess-collection.firebasestorage.app",
-  messagingSenderId: "947805916030",
-  appId: "1:947805916030:web:6a8efeb305c258a78f412f"
+apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
+authDomain:"shoess-collection.firebaseapp.com",
+projectId:"shoess-collection",
+storageBucket:"shoess-collection.firebasestorage.app",
+messagingSenderId:"947805916030",
+appId:"1:947805916030:web:6a8efeb305c258a78f412f",
+measurementId:"G-HL4ETGS860"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -64,28 +177,48 @@ const db = getFirestore(app);
 const productsDiv = document.getElementById("products");
 
 async function loadProducts(){
-  productsDiv.innerHTML="";
 
-  const snap = await getDocs(collection(db,"products"));
+productsDiv.innerHTML="";
 
-  snap.forEach(doc=>{
-    const p = doc.data();
+const snap = await getDocs(collection(db,"products"));
 
-    productsDiv.innerHTML += `
-      <div class="card">
-        <img src="${p.image}" alt="${p.name}">
-        <div class="info">
-          <h3>${p.name}</h3>
-          <p class="price">₹${p.price}</p>
-          class="stock ${(p.status || "In Stock")==="Out of Stock" ? "out" : ""}"
-            ${p.status || "In Stock"}
-          </span>
-        </div>
-      </div>`;
-  });
+if(snap.empty){
+productsDiv.innerHTML='<div class="loading">No Products Found</div>';
+return;
+}
+
+snap.forEach(doc=>{
+
+const p = doc.data();
+
+const status = p.status || "In Stock";
+
+productsDiv.innerHTML += `
+<div class="card">
+
+<img src="${p.image}" alt="${p.name}">
+
+<div class="info">
+
+<h3>${p.name}</h3>
+
+<p class="price">₹${p.price}</p>
+
+<span class="stock ${status==="Out of Stock"?"out":""}">
+${status}
+</span>
+
+</div>
+
+</div>
+`;
+
+});
+
 }
 
 loadProducts();
+
 </script>
 
 </body>
