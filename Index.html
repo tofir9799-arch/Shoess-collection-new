@@ -5,72 +5,72 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shoe Collection</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#0b0b0b;color:#fff}
+body{background:#0a0a0a;color:#fff}
 a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none}
 
 header{
 position:sticky;
 top:0;
 background:#111;
-padding:15px 20px;
+padding:16px 20px;
 display:flex;
 justify-content:space-between;
 align-items:center;
 z-index:999;
+box-shadow:0 5px 20px rgba(0,0,0,.3);
 }
 
-.logo{
-font-size:26px;
-font-weight:700;
-}
+.logo{font-size:30px;font-weight:700}
 
-.right{
+.header-right{
 display:flex;
 gap:10px;
 align-items:center;
 }
 
-.admin{
-background:#25D366;
-padding:10px 16px;
-border-radius:10px;
-font-weight:600;
-}
-
-.cart-btn{
+.icon{
+width:44px;
+height:44px;
+background:#1b1b1b;
+border-radius:12px;
+display:flex;
+justify-content:center;
+align-items:center;
 position:relative;
-background:#222;
-padding:10px 14px;
-border-radius:10px;
-cursor:pointer;
 }
 
 #cartCount{
 position:absolute;
-top:-6px;
-right:-6px;
+top:-5px;
+right:-5px;
 background:red;
-width:20px;
-height:20px;
+color:white;
+font-size:11px;
+padding:3px 7px;
 border-radius:50%;
-display:flex;
-justify-content:center;
-align-items:center;
-font-size:12px;
+}
+
+.admin{
+background:#25D366;
+padding:10px 16px;
+border-radius:12px;
+font-weight:600;
 }
 
 .hero{
-padding:70px 20px;
 text-align:center;
-background:linear-gradient(180deg,#111,#0b0b0b);
+padding:70px 20px;
+background:linear-gradient(180deg,#111,#0a0a0a);
 }
 
 .hero h1{
-font-size:42px;
+font-size:48px;
+line-height:1.1;
 margin-bottom:15px;
 }
 
@@ -79,29 +79,58 @@ color:#aaa;
 margin-bottom:25px;
 }
 
-.shop{
+.hero button{
 background:#25D366;
-padding:14px 30px;
-border-radius:10px;
+padding:15px 30px;
+border-radius:12px;
+color:white;
 font-weight:bold;
-display:inline-block;
+font-size:16px;
 }
 
 .container{
 max-width:1200px;
 margin:auto;
-padding:25px 20px 60px;
+padding:20px;
+}
+
+.search{
+width:100%;
+padding:15px;
+background:#111;
+border:1px solid #333;
+border-radius:14px;
+color:white;
+margin-bottom:20px;
+}
+
+.filters{
+display:flex;
+gap:10px;
+overflow:auto;
+margin-bottom:25px;
+}
+
+.filters button{
+padding:10px 18px;
+background:#1b1b1b;
+color:white;
+border-radius:20px;
+}
+
+.filters .active{
+background:#25D366;
 }
 
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
+gap:22px;
 }
 
 .card{
-background:#151515;
-border-radius:18px;
+background:#111;
+border-radius:20px;
 overflow:hidden;
 transition:.3s;
 }
@@ -117,159 +146,120 @@ object-fit:cover;
 }
 
 .info{
-padding:15px;
+padding:16px;
 }
 
 .info h3{
+font-size:22px;
 margin-bottom:8px;
 }
 
 .price{
-font-size:22px;
+font-size:24px;
 font-weight:bold;
-margin-bottom:12px;
+margin-bottom:10px;
 }
 
 .stock{
 display:inline-block;
-padding:5px 12px;
-background:#14532d;
+padding:6px 12px;
 border-radius:20px;
 font-size:13px;
 margin-bottom:15px;
 }
 
-.out{
-background:#78350f;
-}
+.in{background:#14532d}
+.out{background:#7c2d12}
 
-.btns{
+.actions{
 display:flex;
-gap:8px;
+gap:10px;
 }
 
-.btn{
+.actions button{
 flex:1;
 padding:12px;
-border:none;
 border-radius:10px;
+color:white;
 font-weight:600;
-cursor:pointer;
 }
 
-.cart{
-background:#222;
-color:#fff;
-}
+.cartBtn{background:#2563eb}
+.buyBtn{background:#25D366}
 
-.buy{
-background:#25D366;
-color:#fff;
-}
+/* MODAL */
 
-/* Cart Drawer */
-
-.drawer{
+.modal{
 position:fixed;
-top:0;
-right:-100%;
-width:340px;
-height:100%;
-background:#111;
-transition:.3s;
-z-index:1000;
-display:flex;
-flex-direction:column;
-}
-
-.drawer.open{
-right:0;
-}
-
-.drawer-header{
-padding:20px;
-display:flex;
-justify-content:space-between;
+inset:0;
+background:rgba(0,0,0,.85);
+display:none;
+justify-content:center;
 align-items:center;
-border-bottom:1px solid #333;
+padding:20px;
+z-index:1000;
+}
+
+.modal.show{
+display:flex;
+}
+
+.box{
+width:100%;
+max-width:420px;
+background:#111;
+padding:22px;
+border-radius:20px;
+}
+
+.box h2{
+text-align:center;
+margin-bottom:15px;
+}
+
+.box input,
+.box textarea,
+.box select{
+width:100%;
+padding:13px;
+margin:10px 0;
+background:#0a0a0a;
+border:1px solid #333;
+border-radius:10px;
+color:white;
+}
+
+.box button{
+width:100%;
+padding:14px;
+background:#25D366;
+color:white;
+border-radius:10px;
+font-weight:bold;
+margin-top:8px;
 }
 
 .close{
-font-size:26px;
-cursor:pointer;
-}
-
-.items{
-flex:1;
-overflow:auto;
-padding:15px;
-}
-
-.item{
-display:flex;
-gap:12px;
-margin-bottom:15px;
-background:#1b1b1b;
-padding:10px;
-border-radius:10px;
-}
-
-.item img{
-width:70px;
-height:70px;
-object-fit:cover;
-border-radius:8px;
-}
-
-.remove{
-background:red;
-color:#fff;
-border:none;
-padding:6px 10px;
-border-radius:6px;
-margin-top:6px;
-}
-
-.footer{
-padding:20px;
-border-top:1px solid #333;
-}
-
-.checkout{
-width:100%;
-padding:15px;
-background:#25D366;
-border:none;
-color:white;
-font-size:17px;
-font-weight:bold;
-border-radius:12px;
-cursor:pointer;
-}
-
-.empty{
-text-align:center;
-color:#777;
-margin-top:40px;
+background:#dc2626!important;
 }
 </style>
-
 </head>
-
 <body>
 
 <header>
 
 <div class="logo">Shoe Collection</div>
 
-<div class="right">
+<div class="header-right">
+
+<div class="icon">❤️</div>
+
+<div class="icon">
+🛒
+<span id="cartCount">0</span>
+</div>
 
 <a href="admin.html" class="admin">Admin</a>
-
-<div class="cart-btn" onclick="openCart()">
-🛒
-<div id="cartCount">0</div>
-</div>
 
 </div>
 
@@ -279,37 +269,59 @@ margin-top:40px;
 
 <h1>Premium Sneakers</h1>
 
-<p>Best Quality Shoes with Fast WhatsApp Ordering.</p>
+<p>Modern Shoes With Premium Comfort</p>
 
-<a href="#products" class="shop">Shop Now</a>
+<button onclick="window.scrollTo({top:550,behavior:'smooth'})">
+Explore Collection
+</button>
 
 </section>
 
 <div class="container">
 
-<h2 style="margin-bottom:20px">Latest Products</h2>
+<input id="search" class="search" placeholder="Search Shoes...">
+
+<div class="filters">
+<button class="active">All</button>
+<button>Nike</button>
+<button>Adidas</button>
+<button>Puma</button>
+<button>Sports</button>
+</div>
 
 <div id="products" class="products"></div>
 
 </div>
 
-<!-- CART -->
+<!-- ORDER FORM -->
 
-<div id="drawer" class="drawer">
+<div id="modal" class="modal">
 
-<div class="drawer-header">
-<h3>Your Cart</h3>
-<div class="close" onclick="closeCart()">×</div>
-</div>
+<div class="box">
 
-<div id="cartItems" class="items"></div>
+<h2>Buy Now</h2>
 
-<div class="footer">
+<input id="custName" placeholder="Full Name">
 
-<h3>Total: ₹<span id="total">0</span></h3>
+<input id="custPhone" placeholder="Mobile Number">
 
-<button class="checkout" onclick="checkoutWhatsApp()">
-Checkout on WhatsApp
+<textarea id="custAddress" placeholder="Address"></textarea>
+
+<input id="custCity" placeholder="City">
+
+<input id="custPin" placeholder="PIN Code">
+
+<select id="payment">
+<option>Cash On Delivery</option>
+<option>UPI Payment</option>
+</select>
+
+<button onclick="sendOrder()">
+Place Order
+</button>
+
+<button class="close" onclick="closeModal()">
+Cancel
 </button>
 
 </div>
@@ -336,118 +348,16 @@ appId:"1:947805916030:web:6a8efeb305c258a78f412f"
 };
 
 const app=initializeApp(firebaseConfig);
-
 const db=getFirestore(app);
 
-const productsDiv=document.getElementById("products");
+const wrap=document.getElementById("products");
 
-let cart=JSON.parse(localStorage.getItem("cart"))||[];
-
-function saveCart(){
-
-localStorage.setItem("cart",JSON.stringify(cart));
-
-updateCart();
-
-}
-
-window.openCart=()=>{
-
-document.getElementById("drawer").classList.add("open");
-
-}
-
-window.closeCart=()=>{
-
-document.getElementById("drawer").classList.remove("open");
-
-}
-
-window.removeItem=index=>{
-
-cart.splice(index,1);
-
-saveCart();
-
-}
-
-window.checkoutWhatsApp=()=>{
-
-if(cart.length===0){
-
-alert("Cart is Empty");
-
-return;
-
-}
-
-let text="Hello Shoe Collection,%0A%0AI want to order:%0A";
-
-let total=0;
-
-cart.forEach(p=>{
-
-text+=`• ${p.name} - ₹${p.price}%0A`;
-
-total+=Number(p.price);
-
-});
-
-text+=`%0ATotal: ₹${total}`;
-
-location.href=`https://wa.me/919460609713?text=${text}`;
-
-}
-
-function updateCart(){
-
-document.getElementById("cartCount").innerText=cart.length;
-
-const wrap=document.getElementById("cartItems");
-
-wrap.innerHTML="";
-
-let total=0;
-
-if(cart.length===0){
-
-wrap.innerHTML='<div class="empty">Cart is Empty</div>';
-
-}
-
-cart.forEach((p,i)=>{
-
-total+=Number(p.price);
-
-wrap.innerHTML+=`
-
-<div class="item">
-
-<img src="${p.image}">
-
-<div>
-
-<h4>${p.name}</h4>
-
-<p>₹${p.price}</p>
-
-<button class="remove" onclick="removeItem(${i})">Remove</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-document.getElementById("total").innerText=total;
-
-}
+let currentProduct={};
+let cartCount=0;
 
 async function loadProducts(){
 
-productsDiv.innerHTML="";
+wrap.innerHTML="";
 
 const snap=await getDocs(collection(db,"products"));
 
@@ -457,11 +367,11 @@ const p=doc.data();
 
 const status=p.status||"In Stock";
 
-productsDiv.innerHTML+=`
+wrap.innerHTML+=`
 
 <div class="card">
 
-<img src="${p.image}">
+<img src="${p.image}" alt="${p.name}">
 
 <div class="info">
 
@@ -469,21 +379,33 @@ productsDiv.innerHTML+=`
 
 <div class="price">₹${p.price}</div>
 
-<span class="stock ${status==="Out of Stock"?"out":""}">${status}</span>
+<span class="stock ${status==="In Stock"?"in":"out"}">
 
-<div class="btns">
+${status}
 
-<button class="btn cart" onclick='addToCart(${JSON.stringify({
+</span>
+
+<div class="actions">
+
+<button class="cartBtn"
+onclick='addCart(${JSON.stringify({
 name:"__NAME__",
-price:"__PRICE__",
-image:"__IMAGE__"
-}).replace("__NAME__",p.name).replace("__PRICE__",p.price).replace("__IMAGE__",p.image)})'>Cart</button>
+price:"__PRICE__"
+}).replace("__NAME__",p.name).replace("__PRICE__",p.price)})'>
 
-<button class="btn buy" onclick='buyNow(${JSON.stringify({
+Cart
+
+</button>
+
+<button class="buyBtn"
+onclick='buyNow(${JSON.stringify({
 name:"__NAME__",
-price:"__PRICE__",
-image:"__IMAGE__"
-}).replace("__NAME__",p.name).replace("__PRICE__",p.price).replace("__IMAGE__",p.image)})'>Buy</button>
+price:"__PRICE__"
+}).replace("__NAME__",p.name).replace("__PRICE__",p.price)})'>
+
+Buy Now
+
+</button>
 
 </div>
 
@@ -497,29 +419,82 @@ image:"__IMAGE__"
 
 }
 
-window.addToCart=product=>{
+window.buyNow=(p)=>{
 
-cart.push(product);
+currentProduct=p;
 
-saveCart();
+document.getElementById("modal").classList.add("show");
 
-alert("Added to Cart");
+};
+
+window.closeModal=()=>{
+
+document.getElementById("modal").classList.remove("show");
+
+};
+
+window.addCart=()=>{
+
+cartCount++;
+
+document.getElementById("cartCount").innerText=cartCount;
+
+};
+
+window.sendOrder=()=>{
+
+const name=document.getElementById("custName").value.trim();
+const phone=document.getElementById("custPhone").value.trim();
+const address=document.getElementById("custAddress").value.trim();
+const city=document.getElementById("custCity").value.trim();
+const pin=document.getElementById("custPin").value.trim();
+const payment=document.getElementById("payment").value;
+
+if(!name||!phone||!address||!city||!pin){
+
+alert("Please fill all details");
+
+return;
 
 }
 
-window.buyNow=product=>{
+const text=`Hello Shoe Collection
 
-const msg=`Hello Shoe Collection,%0AI want to buy ${product.name}%0APrice: ₹${product.price}`;
+*NEW ORDER*
 
-location.href=`https://wa.me/919460609713?text=${msg}`;
+Product: ${currentProduct.name}
+Price: ₹${currentProduct.price}
 
-}
+Customer:
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+City: ${city}
+PIN: ${pin}
 
-updateCart();
+Payment: ${payment}`;
+
+const url=`https://wa.me/918769851146?text=${encodeURIComponent(text)}`;
+
+window.open(url,"_blank");
+
+};
+
+document.getElementById("search").addEventListener("input",e=>{
+
+const t=e.target.value.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+
+card.style.display=card.innerText.toLowerCase().includes(t)?"block":"none";
+
+});
+
+});
 
 loadProducts();
 
 </script>
 
 </body>
-  </html>
+</html>
