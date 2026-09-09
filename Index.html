@@ -78,7 +78,7 @@ async function loadProducts(){
           <h3>${p.name}</h3>
           <p class="price">₹${p.price}</p>
           <span class="stock ${p.status==="Out of Stock"?"out":""}">
-            ${p.status}
+            ${p.status || "In Stock"}
           </span>
         </div>
       </div>`;
