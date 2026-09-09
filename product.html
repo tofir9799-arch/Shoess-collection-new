@@ -3,218 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Red Air Max - Shoe Collection</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Product Details - Shoe Collection</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-body{background:#0b0b0b;color:#fff;}
-
-header{
-position:sticky;
-top:0;
-background:#111;
-padding:18px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-header a{color:#fff;text-decoration:none;}
-
-.container{
-padding:30px 20px;
-display:grid;
-grid-template-columns:1fr;
-gap:30px;
-max-width:1100px;
-margin:auto;
-}
-
-.main-img{
-width:100%;
-border-radius:20px;
-}
-
-.thumb-box{
-display:flex;
-gap:10px;
-margin-top:12px;
-overflow:auto;
-}
-
-.thumb-box img{
-width:70px;
-height:70px;
-object-fit:cover;
-border-radius:10px;
-cursor:pointer;
-border:2px solid transparent;
-}
-
-.thumb-box img:hover{
-border-color:#fff;
-}
-
-.price{
-font-size:28px;
-font-weight:bold;
-margin:12px 0;
-}
-
-.desc{
-color:#bbb;
-line-height:1.7;
-margin-bottom:20px;
-}
-
-.sizes{
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-margin-bottom:25px;
-}
-
-.sizes button{
-background:#1a1a1a;
-color:#fff;
-border:1px solid #333;
-padding:12px 16px;
-border-radius:10px;
-cursor:pointer;
-}
-
-.sizes button:hover{
-background:#fff;
-color:#000;
-}
-
-.buy{
-display:block;
-text-align:center;
-background:#25D366;
-color:#fff;
-text-decoration:none;
-padding:16px;
-border-radius:35px;
-font-weight:bold;
-font-size:18px;
-}
-
-.features{
-margin-top:30px;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:15px;
-}
-
-.box{
-background:#151515;
-padding:18px;
-border-radius:15px;
-text-align:center;
-}
-
-footer{
-margin-top:40px;
-padding:20px;
-text-align:center;
-background:#111;
-color:#888;
-}
-
-@media(min-width:768px){
-.container{
-grid-template-columns:1fr 1fr;
-align-items:center;
-}
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:#0b0b0b;color:#fff}
+.container{max-width:1100px;margin:auto;padding:20px}
+.back{display:inline-block;margin-bottom:20px;color:#25D366;text-decoration:none;font-weight:600}
+.card{background:#151515;border-radius:20px;overflow:hidden}
+.card img{width:100%;height:340px;object-fit:cover}
+.info{padding:20px}
+.price{font-size:30px;font-weight:700;margin:10px 0}
+.stock{display:inline-block;background:#1b5e20;padding:6px 14px;border-radius:20px;margin-bottom:20px}
+.sizes{display:flex;gap:10px;margin:15px 0;flex-wrap:wrap}
+.size{padding:10px 16px;border:1px solid #444;border-radius:10px}
+.btn{display:block;width:100%;padding:16px;background:#25D366;color:#fff;text-align:center;border-radius:12px;text-decoration:none;font-weight:bold;font-size:18px}
 </style>
 </head>
-
 <body>
 
-<header>
-<h2>SHOE COLLECTION</h2>
-<a href="collection.html">← Back</a>
-</header>
-
 <div class="container">
+<a href="index.html" class="back">← Back</a>
 
-<div>
-<img id="mainImage" class="main-img"
-src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800">
-
-<div class="thumb-box">
-
-<img onclick="changeImage(this.src)"
-src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=300">
-
-<img onclick="changeImage(this.src)"
-src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=300">
-
-<img onclick="changeImage(this.src)"
-src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=300">
-
-</div>
-</div>
-
-<div>
-
-<h1>Red Air Max</h1>
-
-<p class="price">₹1,999</p>
-
-<p class="desc">
-Premium sneakers with lightweight comfort, modern design and durable sole.
-Perfect for casual wear and daily use.
-</p>
+<div class="card">
+<img id="img" src="" alt="">
+<div class="info">
+<h1 id="name">Loading...</h1>
+<div class="price" id="price"></div>
+<div class="stock" id="status"></div>
 
 <h3>Select Size</h3>
-
 <div class="sizes">
-<button>7</button>
-<button>8</button>
-<button>9</button>
-<button>10</button>
+<div class="size">6</div>
+<div class="size">7</div>
+<div class="size">8</div>
+<div class="size">9</div>
+<div class="size">10</div>
 </div>
 
-<a class="buy"
-href="https://wa.me/919460609713?text=Hi%20I%20want%20to%20buy%20Red%20Air%20Max">
-Buy on WhatsApp
-</a>
-
-<div class="features">
-
-<div class="box">
-<h4>Premium</h4>
-<p>Quality</p>
+<a id="waBtn" class="btn" target="_blank">Order on WhatsApp</a>
+</div>
+</div>
 </div>
 
-<div class="box">
-<h4>Fast</h4>
-<p>Delivery</p>
-</div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-<div class="box">
-<h4>Easy</h4>
-<p>Return</p>
-</div>
+const firebaseConfig={
+apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
+authDomain:"shoess-collection.firebaseapp.com",
+projectId:"shoess-collection",
+storageBucket:"shoess-collection.firebasestorage.app",
+messagingSenderId:"947805916030",
+appId:"1:947805916030:web:6a8efeb305c258a78f412f"
+};
 
-</div>
+const app=initializeApp(firebaseConfig);
+const db=getFirestore(app);
 
-</div>
+const id=new URLSearchParams(location.search).get("id");
 
-</div>
+if(id){
+const snap=await getDoc(doc(db,"products",id));
+if(snap.exists()){
+const p=snap.data();
+document.getElementById("img").src=p.image;
+document.getElementById("name").innerText=p.name;
+document.getElementById("price").innerText="₹"+p.price;
+document.getElementById("status").innerText=p.status||"In Stock";
 
-<footer>© 2026 Shoe Collection</footer>
-
-<script>
-function changeImage(src){
-document.getElementById("mainImage").src=src;
+const msg=encodeURIComponent(`Hello, I want to buy ${p.name} (₹${p.price}).`);
+document.getElementById("waBtn").href=`https://wa.me/919460609713?text=${msg}`;
+}
 }
 </script>
 
