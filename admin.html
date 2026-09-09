@@ -3,331 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panel - Shoe Collection</title>
+<title>Admin Login - Shoe Collection</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#0b0b0b;color:#fff}
-.hidden{display:none}
-.login{height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
-.card{width:100%;max-width:380px;background:#151515;padding:25px;border-radius:18px}
-.card h2{text-align:center;margin-bottom:20px}
-input,select{width:100%;padding:14px;margin-bottom:12px;background:#0f0f0f;border:1px solid #333;border-radius:10px;color:white}
-button{width:100%;padding:14px;background:#25D366;border:none;border-radius:10px;color:white;font-weight:bold;cursor:pointer}
-.container{max-width:1100px;margin:auto;padding:20px}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.logout{width:auto;padding:10px 18px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:20px}
-.box{background:#151515;padding:18px;border-radius:15px}
-.form{background:#151515;padding:20px;border-radius:15px;margin-bottom:25px}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.product{background:#151515;border-radius:15px;overflow:hidden}
-.product img{width:100%;height:180px;object-fit:cover}
-.info{padding:15px}
-.status{display:inline-block;padding:5px 10px;border-radius:20px;font-size:13px;margin:8px 0}
-.in{background:#1b5e20}
-.out{background:#6d4c41}
-.actions{display:flex;gap:8px}
-.small{flex:1;padding:10px;font-size:14px}
-.red{background:#dc2626}
-.orange{background:#f59e0b}
-.blue{background:#2563eb}
+body{
+background:#0b0b0b;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+color:#fff;
+padding:20px;
+}
+.card{
+width:100%;
+max-width:380px;
+background:#151515;
+padding:30px;
+border-radius:18px;
+box-shadow:0 0 25px rgba(0,0,0,.4);
+}
+h1{
+text-align:center;
+margin-bottom:25px;
+}
+input{
+width:100%;
+padding:15px;
+margin-bottom:15px;
+background:#0f0f0f;
+border:1px solid #333;
+border-radius:10px;
+color:#fff;
+font-size:15px;
+}
+button{
+width:100%;
+padding:15px;
+background:#25D366;
+border:none;
+border-radius:10px;
+color:white;
+font-weight:700;
+font-size:16px;
+cursor:pointer;
+}
+button:hover{
+background:#20bf5a;
+}
+#msg{
+margin-top:15px;
+text-align:center;
+font-size:14px;
+color:#bbb;
+}
 </style>
 </head>
+
 <body>
 
-<div id="loginPage" class="login">
 <div class="card">
-<h2>Admin Login</h2>
+<h1>Admin Login</h1>
 
 <input id="email" type="email" placeholder="Email">
 <input id="password" type="password" placeholder="Password">
 
 <button id="loginBtn">Login</button>
 
-<p style="text-align:center;margin-top:15px;color:#888">Only Shop Owner</p>
-</div>
-</div>
-
-<div id="dashboard" class="hidden">
-<div class="container">
-
-<div class="header">
-<h2>Admin Dashboard</h2>
-<button id="logoutBtn" class="logout">Logout</button>
+<p id="msg">Only Shop Owner can access.</p>
 </div>
 
-<div class="grid">
-<div class="box">
-<p>Total Products</p>
-<h1 id="totalProducts">0</h1>
-</div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-<div class="box">
-<p>Out Of Stock</p>
-<h1 id="outStock">0</h1>
-</div>
-</div>
-
-<div class="form">
-
-<h3>Add Product</h3>
-
-<input id="name" placeholder="Product Name">
-<input id="price" placeholder="Price">
-<input id="image" placeholder="Image URL">
-
-<select id="status">
-<option>In Stock</option>
-<option>Out of Stock</option>
-</select>
-
-<button id="addBtn">Add Product</button>
-
-</div>
-
-<div id="products" class="products"></div>
-
-</div>
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getAuth,
-signInWithEmailAndPassword,
-signOut
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-// ===== YOUR FIREBASE CONFIG =====
-
-const firebaseConfig={
-apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
-authDomain:"shoess-collection.firebaseapp.com",
-projectId:"shoess-collection",
-storageBucket:"shoess-collection.firebasestorage.app",
-messagingSenderId:"947805916030",
-appId:"1:947805916030:web:6a8efeb305c258a78f412f",
-measurementId:"G-HL4ETGS860"
+<script>
+const firebaseConfig = {
+ apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
+ authDomain:"shoess-collection.firebaseapp.com",
+ projectId:"shoess-collection",
+ storageBucket:"shoess-collection.firebasestorage.app",
+ messagingSenderId:"947805916030",
+ appId:"1:947805916030:web:6a8efeb305c258a78f412f"
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
+firebase.initializeApp(firebaseConfig);
 
-const loginPage=document.getElementById("loginPage");
-const dashboard=document.getElementById("dashboard");
-
-const totalProducts=document.getElementById("totalProducts");
-const outStock=document.getElementById("outStock");
-const productsDiv=document.getElementById("products");
-
-// LOGIN
+const msg=document.getElementById("msg");
 
 document.getElementById("loginBtn").onclick=async()=>{
 
-const email=document.getElementById("email").value.trim();
-const pass=document.getElementById("password").value.trim();
+ const email=document.getElementById("email").value.trim();
+ const password=document.getElementById("password").value.trim();
 
-try{
+ if(!email||!password){
+   msg.innerText="Email aur Password bharo.";
+   msg.style.color="orange";
+   return;
+ }
 
-await signInWithEmailAndPassword(auth,email,pass);
+ try{
 
-loginPage.classList.add("hidden");
-dashboard.classList.remove("hidden");
+   await firebase.auth().signInWithEmailAndPassword(email,password);
 
-loadProducts();
+   msg.innerText="Login Successful...";
+   msg.style.color="#25D366";
 
-}catch(e){
+   setTimeout(()=>{
+      window.location.href="dashboard.html";
+   },800);
 
-alert(e.code);
+ }catch(e){
 
-}
+   msg.innerText=e.message;
+   msg.style.color="red";
 
-};
-
-// LOGOUT
-
-document.getElementById("logoutBtn").onclick=async()=>{
-
-await signOut(auth);
-
-dashboard.classList.add("hidden");
-loginPage.classList.remove("hidden");
+ }
 
 };
-
-// ADD PRODUCT
-
-document.getElementById("addBtn").onclick=async()=>{
-
-const name=document.getElementById("name").value.trim();
-const price=document.getElementById("price").value.trim();
-const image=document.getElementById("image").value.trim();
-const status=document.getElementById("status").value;
-
-if(!name||!price||!image){
-
-alert("Fill all fields");
-
-return;
-
-}
-
-await addDoc(collection(db,"products"),{
-
-name,
-price,
-image,
-status
-
-});
-
-document.getElementById("name").value="";
-document.getElementById("price").value="";
-document.getElementById("image").value="";
-
-loadProducts();
-
-};
-
-// LOAD PRODUCTS
-
-async function loadProducts(){
-
-productsDiv.innerHTML="";
-
-const snap=await getDocs(collection(db,"products"));
-
-let total=0;
-let out=0;
-
-snap.forEach(item=>{
-
-const p=item.data();
-
-total++;
-
-if(p.status==="Out of Stock") out++;
-
-productsDiv.innerHTML+=`
-
-<div class="product">
-
-<img src="${p.image}">
-
-<div class="info">
-
-<h3>${p.name}</h3>
-
-<p>₹${p.price}</p>
-
-<span class="status ${p.status==="In Stock"?"in":"out"}">
-
-${p.status}
-
-</span>
-
-<div class="actions">
-
-<button class="small blue"
-onclick="editProduct('${item.id}','${p.name}','${p.price}')">
-
-Edit
-
-</button>
-
-<button class="small orange"
-onclick="toggleStock('${item.id}','${p.status}')">
-
-Stock
-
-</button>
-
-<button class="small red"
-onclick="deleteProduct('${item.id}')">
-
-Delete
-
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-`;
-
-});
-
-totalProducts.innerText=total;
-outStock.innerText=out;
-
-}
-
-// GLOBAL FUNCTIONS
-
-window.deleteProduct=async(id)=>{
-
-if(confirm("Delete Product?")){
-
-await deleteDoc(doc(db,"products",id));
-
-loadProducts();
-
-}
-
-};
-
-window.toggleStock=async(id,status)=>{
-
-await updateDoc(doc(db,"products",id),{
-
-status:status==="In Stock"
-?"Out of Stock"
-:"In Stock"
-
-});
-
-loadProducts();
-
-};
-
-window.editProduct=async(id,name,price)=>{
-
-const newName=prompt("Product Name",name);
-const newPrice=prompt("Price",price);
-
-if(newName&&newPrice){
-
-await updateDoc(doc(db,"products",id),{
-
-name:newName,
-price:newPrice
-
-});
-
-loadProducts();
-
-}
-
-};
-
 </script>
 
 </body>
