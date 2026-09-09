@@ -1,57 +1,43 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Dashboard - Shoe Collection</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 body{background:#0b0b0b;color:#fff}
 .container{max-width:1100px;margin:auto;padding:20px}
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
-.logout{background:#dc2626;border:none;color:white;padding:10px 18px;border-radius:10px}
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-bottom:20px}
-.box{background:#151515;padding:18px;border-radius:15px;text-align:center}
-.form{background:#151515;padding:20px;border-radius:15px;margin-bottom:25px}
-input,select{width:100%;padding:13px;margin-bottom:12px;background:#0f0f0f;border:1px solid #333;border-radius:10px;color:white}
-.add{width:100%;padding:14px;background:#25D366;border:none;border-radius:10px;color:white;font-weight:bold}
+button{cursor:pointer;border:none;border-radius:10px;padding:12px 16px;font-weight:600}
+.logout{background:#dc2626;color:#fff}
+.add{background:#25D366;color:#fff;width:100%}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin:20px 0}
+.box,.form,.card{background:#151515;border-radius:16px;padding:18px}
+input,select{width:100%;padding:13px;margin:8px 0;background:#0f0f0f;border:1px solid #333;border-radius:10px;color:#fff}
 .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
-.card{background:#151515;border-radius:15px;overflow:hidden}
-.card img{width:100%;height:180px;object-fit:cover}
-.info{padding:15px}
-.status{display:inline-block;padding:5px 10px;border-radius:20px;font-size:13px;margin:8px 0}
-.in{background:#14532d}
-.out{background:#78350f}
-.actions{display:flex;gap:8px}
-.actions button{flex:1;padding:10px;border:none;border-radius:8px;color:white}
-.blue{background:#2563eb}
-.orange{background:#f59e0b}
-.red{background:#dc2626}
+.card img{width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:12px}
+.actions{display:flex;gap:8px;margin-top:10px}
+.actions button{flex:1;color:#fff}
+.blue{background:#2563eb}.orange{background:#f59e0b}.red{background:#dc2626}
 </style>
-</head>
 
+<script src="https://upload-widget.cloudinary.com/global/all.js"></script>
+</head>
 <body>
 
 <div class="container">
 
 <div class="header">
 <h2>Admin Dashboard</h2>
-<button class="logout" id="logoutBtn">Logout</button>
+<button id="logoutBtn" class="logout">Logout</button>
 </div>
 
-<div class="stats">
-<div class="box">
-<p>Total Products</p>
-<h1 id="total">0</h1>
-</div>
-
-<div class="box">
-<p>Out Of Stock</p>
-<h1 id="out">0</h1>
-</div>
+<div class="grid">
+<div class="box"><p>Total Products</p><h1 id="total">0</h1></div>
+<div class="box"><p>Out Of Stock</p><h1 id="out">0</h1></div>
 </div>
 
 <div class="form">
@@ -59,7 +45,9 @@ input,select{width:100%;padding:13px;margin-bottom:12px;background:#0f0f0f;borde
 
 <input id="name" placeholder="Product Name">
 <input id="price" placeholder="Price">
-<input id="image" placeholder="Image URL">
+<input id="image" placeholder="Image URL" readonly>
+
+<button id="uploadBtn" type="button">📷 Upload Image</button>
 
 <select id="stock">
 <option>In Stock</option>
@@ -75,9 +63,23 @@ input,select{width:100%;padding:13px;margin-bottom:12px;background:#0f0f0f;borde
 
 <script type="module">
 
-import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {getAuth,signOut,onAuthStateChanged} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,addDoc,getDocs,deleteDoc,doc,updateDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+doc,
+updateDoc,
+deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig={
 apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
@@ -93,8 +95,11 @@ const auth=getAuth(app);
 const db=getFirestore(app);
 
 onAuthStateChanged(auth,user=>{
-if(!user) location.href="admin.html";
-else loadProducts();
+if(!user){
+location.href="admin.html";
+}else{
+loadProducts();
+}
 });
 
 document.getElementById("logoutBtn").onclick=async()=>{
@@ -102,25 +107,54 @@ await signOut(auth);
 location.href="admin.html";
 };
 
+const widget=cloudinary.createUploadWidget({
+
+cloudName:"khi5rknj",
+
+uploadPreset:"Shoess collection"
+
+},(error,result)=>{
+
+if(!error && result && result.event==="success"){
+
+document.getElementById("image").value=result.info.secure_url;
+
+}
+
+});
+
+document.getElementById("uploadBtn").onclick=()=>widget.open();
+
+const name=document.getElementById("name");
+const price=document.getElementById("price");
+const image=document.getElementById("image");
+const stock=document.getElementById("stock");
+
 document.getElementById("addBtn").onclick=async()=>{
 
-const name=document.getElementById("name").value.trim();
-const price=document.getElementById("price").value.trim();
-const image=document.getElementById("image").value.trim();
-const stock=document.getElementById("stock").value;
+if(!name.value||!price.value||!image.value){
 
-if(!name||!price||!image){
 alert("Fill all fields");
+
 return;
+
 }
 
 await addDoc(collection(db,"products"),{
-name,price,image,stock
+
+name:name.value,
+
+price:price.value,
+
+image:image.value,
+
+status:stock.value
+
 });
 
-document.getElementById("name").value="";
-document.getElementById("price").value="";
-document.getElementById("image").value="";
+name.value="";
+price.value="";
+image.value="";
 
 loadProducts();
 
@@ -129,11 +163,13 @@ loadProducts();
 async function loadProducts(){
 
 const wrap=document.getElementById("products");
+
 wrap.innerHTML="";
 
-const snap=await getDocs(collection(db,"products"));
+let total=0;
+let out=0;
 
-let total=0,out=0;
+const snap=await getDocs(collection(db,"products"));
 
 snap.forEach(d=>{
 
@@ -141,26 +177,25 @@ const p=d.data();
 
 total++;
 
-if(p.stock==="Out of Stock") out++;
+if((p.status||"In Stock")==="Out of Stock") out++;
 
 wrap.innerHTML+=`
+
 <div class="card">
 
 <img src="${p.image}">
-
-<div class="info">
 
 <h3>${p.name}</h3>
 
 <p>₹${p.price}</p>
 
-<span class="status ${p.stock==="In Stock"?"in":"out"}">${p.stock}</span>
+<p>${p.status||"In Stock"}</p>
 
 <div class="actions">
 
 <button class="blue" onclick="editProduct('${d.id}','${p.name}','${p.price}')">Edit</button>
 
-<button class="orange" onclick="toggleStock('${d.id}','${p.stock}')">Stock</button>
+<button class="orange" onclick="toggleStock('${d.id}','${p.status||"In Stock"}')">Stock</button>
 
 <button class="red" onclick="deleteProduct('${d.id}')">Delete</button>
 
@@ -168,39 +203,64 @@ wrap.innerHTML+=`
 
 </div>
 
-</div>`;
+`;
+
 });
 
 document.getElementById("total").innerText=total;
+
 document.getElementById("out").innerText=out;
+
 }
 
 window.deleteProduct=async(id)=>{
+
 if(confirm("Delete Product?")){
+
 await deleteDoc(doc(db,"products",id));
+
 loadProducts();
+
 }
+
 };
 
 window.toggleStock=async(id,status)=>{
+
 await updateDoc(doc(db,"products",id),{
-stock:status==="In Stock"?"Out of Stock":"In Stock"
+
+status:status==="In Stock"
+
+?"Out of Stock"
+
+:"In Stock"
+
 });
+
 loadProducts();
+
 };
 
-window.editProduct=async(id,name,price)=>{
+window.editProduct=async(id,n,p)=>{
 
-const n=prompt("Product Name",name);
-const p=prompt("Price",price);
+const newName=prompt("Product Name",n);
 
-if(n&&p){
+const newPrice=prompt("Price",p);
+
+if(newName&&newPrice){
+
 await updateDoc(doc(db,"products",id),{
-name:n,
-price:p
+
+name:newName,
+
+price:newPrice
+
 });
+
 loadProducts();
+
 }
+
 };
 
 </script>
