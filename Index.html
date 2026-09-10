@@ -3,407 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Shoe Collection</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-body{background:#0a0a0a;color:#fff}
-a{text-decoration:none;color:inherit}
-button{cursor:pointer;border:none}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-header{
-position:sticky;
-top:0;
-background:#111;
-padding:16px 20px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-z-index:999;
-box-shadow:0 5px 20px rgba(0,0,0,.3);
-}
-
-.logo{font-size:30px;font-weight:700}
-
-.header-right{
-display:flex;
-gap:10px;
-align-items:center;
-}
-
-.icon{
-width:44px;
-height:44px;
-background:#1b1b1b;
-border-radius:12px;
-display:flex;
-justify-content:center;
-align-items:center;
-position:relative;
-}
-
-#cartCount{
-position:absolute;
-top:-5px;
-right:-5px;
-background:red;
-color:white;
-font-size:11px;
-padding:3px 7px;
-border-radius:50%;
-}
-
-.admin{
-background:#25D366;
-padding:10px 16px;
-border-radius:12px;
-font-weight:600;
-}
-
-.hero{
-text-align:center;
-padding:70px 20px;
-background:linear-gradient(180deg,#111,#0a0a0a);
-}
-
-.hero h1{
-font-size:48px;
-line-height:1.1;
-margin-bottom:15px;
-}
-
-.hero p{
-color:#aaa;
-margin-bottom:25px;
-}
-
-.hero button{
-background:#25D366;
-padding:15px 30px;
-border-radius:12px;
-color:white;
-font-weight:bold;
-font-size:16px;
-}
-
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
-
-.search{
-width:100%;
-padding:15px;
-background:#111;
-border:1px solid #333;
-border-radius:14px;
-color:white;
-margin-bottom:20px;
-}
-
-.filters{
-display:flex;
-gap:10px;
-overflow:auto;
-margin-bottom:25px;
-}
-
-.filters button{
-padding:10px 18px;
-background:#1b1b1b;
-color:white;
-border-radius:20px;
-}
-
-.filters .active{
-background:#25D366;
-}
-
-.products{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:22px;
-}
-
-.card{
-background:#111;
-border-radius:20px;
-overflow:hidden;
-transition:.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card img{
-width:100%;
-height:240px;
-object-fit:cover;
-}
-
-.info{
-padding:16px;
-}
-
-.info h3{
-font-size:22px;
-margin-bottom:8px;
-}
-
-.price{
-font-size:24px;
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.stock{
-display:inline-block;
-padding:6px 12px;
-border-radius:20px;
-font-size:13px;
-margin-bottom:15px;
-}
-
-.in{background:#14532d}
-.out{background:#7c2d12}
-
-.actions{
-display:flex;
-gap:10px;
-}
-
-.actions button{
-flex:1;
-padding:12px;
-border-radius:10px;
-color:white;
-font-weight:600;
-}
-
-.cartBtn{background:#2563eb}
-.buyBtn{background:#25D366}
-
-/* MODAL */
-
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.85);
-display:none;
-justify-content:center;
-align-items:center;
-padding:20px;
-z-index:1000;
-}
-
-.modal.show{
-display:flex;
-}
-
-.box{
-width:100%;
-max-width:420px;
-background:#111;
-padding:22px;
-border-radius:20px;
-}
-
-.box h2{
-text-align:center;
-margin-bottom:15px;
-}
-
-.box input,
-.box textarea,
-.box select{
-width:100%;
-padding:13px;
-margin:10px 0;
-background:#0a0a0a;
-border:1px solid #333;
-border-radius:10px;
-color:white;
-}
-
-.box button{
-width:100%;
-padding:14px;
-background:#25D366;
-color:white;
-border-radius:10px;
-font-weight:bold;
-margin-top:8px;
-}
-
-.close{
-background:#dc2626!important;
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+<!-- HEADER -->
 
 <header>
 
-<div class="logo">Shoe Collection</div>
+<div class="logo">
 
-<div class="header-right">
+👟 <span>Shoe Collection</span>
 
-<div class="icon">❤️</div>
-
-<div class="icon">
-🛒
-<span id="cartCount">0</span>
 </div>
 
-<a href="admin.html" class="admin">Admin</a>
+<div class="nav-right">
+
+<div class="icon-btn">❤️</div>
+
+<div class="icon-btn">
+
+🛒
+
+<span class="cart-count" id="cartCount">0</span>
+
+</div>
+
+<a href="admin.html" class="admin-btn">Admin</a>
 
 </div>
 
 </header>
 
+<!-- HERO -->
+
 <section class="hero">
 
-<h1>Premium Sneakers</h1>
+<h1>Premium Sneakers Collection</h1>
 
-<p>Modern Shoes With Premium Comfort</p>
+<p>Modern Style • Premium Comfort • Best Prices</p>
 
-<button onclick="window.scrollTo({top:550,behavior:'smooth'})">
-Explore Collection
-</button>
+<a href="#shop" class="hero-btn">Shop Now</a>
 
 </section>
 
-<div class="container">
+<!-- SHOP -->
 
-<input id="search" class="search" placeholder="Search Shoes...">
+<section id="shop" class="container">
+
+<input
+id="search"
+class="search"
+placeholder="Search Shoes...">
 
 <div class="filters">
-<button class="active">All</button>
-<button>Nike</button>
-<button>Adidas</button>
-<button>Puma</button>
-<button>Sports</button>
+
+<button class="filter-btn active">All</button>
+
+<button class="filter-btn">Nike</button>
+
+<button class="filter-btn">Adidas</button>
+
+<button class="filter-btn">Puma</button>
+
+<button class="filter-btn">Sports</button>
+
 </div>
 
-<div id="products" class="products"></div>
+<div id="products" class="products">
+
+<!-- Firebase Products -->
 
 </div>
 
-<!-- ORDER FORM -->
+</section>
+
+<!-- BUY NOW MODAL -->
 
 <div id="modal" class="modal">
 
-<div class="box">
+<div class="modal-box">
 
-<h2>Buy Now</h2>
+<h2>Complete Your Order</h2>
 
-<input id="custName" placeholder="Full Name">
+<input
+id="custName"
+placeholder="Full Name">
 
-<input id="custPhone" placeholder="Mobile Number">
+<input
+id="custPhone"
+placeholder="Mobile Number">
 
-<textarea id="custAddress" placeholder="Address"></textarea>
+<textarea
+id="custAddress"
+placeholder="Full Address"></textarea>
 
-<input id="custCity" placeholder="City">
+<input
+id="custCity"
+placeholder="City">
 
-<input id="custPin" placeholder="PIN Code">
+<input
+id="custPin"
+placeholder="PIN Code">
 
 <select id="payment">
+
 <option>Cash On Delivery</option>
+
 <option>UPI Payment</option>
+
 </select>
 
-<button onclick="sendOrder()">
+<button
+class="place-btn"
+onclick="sendOrder()">
+
 Place Order
+
 </button>
 
-<button class="close" onclick="closeModal()">
+<button
+class="close-btn"
+onclick="closeModal()">
+
 Cancel
-</button>
-
-</div>
-
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig={
-apiKey:"AIzaSyD8fVEBmZDsbT2HAkeghb9VwviW8Kqe-Ds",
-authDomain:"shoess-collection.firebaseapp.com",
-projectId:"shoess-collection",
-storageBucket:"shoess-collection.firebasestorage.app",
-messagingSenderId:"947805916030",
-appId:"1:947805916030:web:6a8efeb305c258a78f412f"
-};
-
-const app=initializeApp(firebaseConfig);
-const db=getFirestore(app);
-
-const wrap=document.getElementById("products");
-
-let currentProduct={};
-let cartCount=0;
-
-async function loadProducts(){
-
-wrap.innerHTML="";
-
-const snap=await getDocs(collection(db,"products"));
-
-snap.forEach(doc=>{
-
-const p=doc.data();
-
-const status=p.status||"In Stock";
-
-wrap.innerHTML+=`
-
-<div class="card">
-
-<img src="${p.image}" alt="${p.name}">
-
-<div class="info">
-
-<h3>${p.name}</h3>
-
-<div class="price">₹${p.price}</div>
-
-<span class="stock ${status==="In Stock"?"in":"out"}">
-
-${status}
-
-</span>
-
-<div class="actions">
-
-<button class="cartBtn"
-onclick='addCart(${JSON.stringify({
-name:"__NAME__",
-price:"__PRICE__"
-}).replace("__NAME__",p.name).replace("__PRICE__",p.price)})'>
-
-Cart
-
-</button>
-
-<button class="buyBtn"
-onclick='buyNow(${JSON.stringify({
-name:"__NAME__",
-price:"__PRICE__"
-}).replace("__NAME__",p.name).replace("__PRICE__",p.price)})'>
-
-Buy Now
 
 </button>
 
@@ -411,90 +143,21 @@ Buy Now
 
 </div>
 
-</div>
+<!-- FOOTER -->
 
-`;
+<footer>
 
-});
+<h3>Shoe Collection</h3>
 
-}
+<p>Premium Shoes • Quality First</p>
 
-window.buyNow=(p)=>{
+<p>© 2026 Shoe Collection</p>
 
-currentProduct=p;
+</footer>
 
-document.getElementById("modal").classList.add("show");
+<!-- SCRIPT -->
 
-};
-
-window.closeModal=()=>{
-
-document.getElementById("modal").classList.remove("show");
-
-};
-
-window.addCart=()=>{
-
-cartCount++;
-
-document.getElementById("cartCount").innerText=cartCount;
-
-};
-
-window.sendOrder=()=>{
-
-const name=document.getElementById("custName").value.trim();
-const phone=document.getElementById("custPhone").value.trim();
-const address=document.getElementById("custAddress").value.trim();
-const city=document.getElementById("custCity").value.trim();
-const pin=document.getElementById("custPin").value.trim();
-const payment=document.getElementById("payment").value;
-
-if(!name||!phone||!address||!city||!pin){
-
-alert("Please fill all details");
-
-return;
-
-}
-
-const text=`Hello Shoe Collection
-
-*NEW ORDER*
-
-Product: ${currentProduct.name}
-Price: ₹${currentProduct.price}
-
-Customer:
-Name: ${name}
-Phone: ${phone}
-Address: ${address}
-City: ${city}
-PIN: ${pin}
-
-Payment: ${payment}`;
-
-const url=`https://wa.me/918769851146?text=${encodeURIComponent(text)}`;
-
-window.open(url,"_blank");
-
-};
-
-document.getElementById("search").addEventListener("input",e=>{
-
-const t=e.target.value.toLowerCase();
-
-document.querySelectorAll(".card").forEach(card=>{
-
-card.style.display=card.innerText.toLowerCase().includes(t)?"block":"none";
-
-});
-
-});
-
-loadProducts();
-
-</script>
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
